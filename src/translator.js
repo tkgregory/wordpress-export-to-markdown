@@ -87,6 +87,8 @@ function getPostContent(post, turndownService, config) {
 	// clean up the "." from the iframe hack above
 	content = content.replace(/\.(<\/iframe>)/gi, '$1');
 
+	content = content.replace(/https:\/\/youtu.be\/(.*)/gi, '{{<youtube $1 >}}')
+
 	return content;
 }
 
