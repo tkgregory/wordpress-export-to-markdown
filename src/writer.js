@@ -104,16 +104,8 @@ async function writeImageFilesPromise(posts, config) {
 	const payloads = posts.flatMap(post => {
 		const postPath = getPostPath(post, config);
 		const imagesDir = path.join(path.dirname(postPath), 'images');
-		const filenames = new Set();
 		return post.meta.imageUrls.flatMap(imageUrl => {
-			const originalFilename = shared.getFilenameFromUrl(imageUrl);
-
-			let index = 1;
-			let filename = originalFilename;
-			while (filenames.has(filename)) {
-				filename = originalFilename.replace('.', '' + index++ + '.');
-			}
-			filenames.add(filename);
+			const filename = shared.getFilenameFromUrl(imageUrl);
 			const destinationPath = path.join(imagesDir, filename);
 			if (checkFile(destinationPath)) {
 				// already exists, don't need to save again
